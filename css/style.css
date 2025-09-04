@@ -1,0 +1,39 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.card-img{
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.card-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-text{
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-y: scroll;
+}
+
+.card{
+    height: 500px;
+}
+
+/* .allData{
+    gap: 20px;
+} */
+
+.cart img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
