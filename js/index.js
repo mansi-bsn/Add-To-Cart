@@ -1,4 +1,4 @@
-const products = 
+const products =
     [
         {
             "id": 1,
@@ -263,12 +263,13 @@ let viewProduct = () => {
                         <p class="card-text">${product.description}</p>
                         <h3 class="">₹${product.price}</h3>
                         <a href="#" class="btn btn-primary" onclick="addSingleProduct(${product.id})">Add to Cart</a>
+                        <a href="#" class="btn btn-success viewBtnTrigger" onclick="viewSingleProduct(${product.id})">View</a>
                     </div>
                 </div>
             </div>`;
     });
     allData.innerHTML = str;
-} 
+}
 viewProduct();
 
 let addSingleProduct = (id) => {
@@ -286,10 +287,48 @@ let addSingleProduct = (id) => {
     cartAdd();
     localStorage.setItem('cartItems', JSON.stringify(cart));
 }
+
+let viewSingleProduct = (id) => {
+    let viewBtn1 = document.querySelector(".viewBtnContainer");
+    viewBtn1.innerHTML = '';
+
+    let div = document.createElement("div");
+    div.classList.add("viewBtn-bg");
+
+    let prod = JSON.parse(localStorage.getItem('products'));
+    let view = prod.find(item => item.id == id);
+    console.log(view);
+
+    div.innerHTML = `
+        <div class="view_prod_card">
+            <button class="btn btn-danger mb-3" onclick="closeView()" style="position:absolute; top:10px; right:10px;">✖</button>
+            <div class="card">
+                <div class="card-img">
+                    <img src="${view.image}" class="card-img-top" alt="${view.title}" style="max-height:300px; object-fit:contain;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">${view.title}</h5>
+                    <p class="card-text">${view.description}</p>
+                    <h3 class="">₹${view.price}</h3>
+                    <a href="#" class="btn btn-primary" onclick="addSingleProduct(${view.id})">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    `;
+
+    viewBtn1.appendChild(div);
+}
+
+let closeView = () => {
+    let viewBtn1 = document.querySelector(".viewBtnContainer");
+    viewBtn1.innerHTML = '';
+}
+
+
 let saveCount = JSON.parse(localStorage.getItem('cart')) || 0;
 cartCount.innerHTML = saveCount;
 let cartAdd = () => {
-    let newCount = parseInt(cartCount.innerHTML) + 1;    
+    let newCount = parseInt(cartCount.innerHTML) + 1;
     cartCount.innerHTML = newCount;
     localStorage.setItem('cart', JSON.stringify(newCount));
 }
